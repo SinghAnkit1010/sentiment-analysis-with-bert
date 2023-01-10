@@ -1,0 +1,6 @@
+tensorflow_text
+tensorflow
+pandas
+numpy
+flask
+regex
