@@ -42,13 +42,14 @@ class Sentiment:
       else:
         sentiment.append("negative")
       score.append(value)
-      dict["setences"] = sentence[i]
+      dict["setence"] = sentence[i]
       dict["score"] = score[i]
       dict["sentiment"] = sentiment[i]
       prediction.append(dict)
-    return prediction
+    return prediction[0]
 obj = Sentiment()
 app = Flask(__name__,template_folder='template')
+results = []
 
 @app.route("/")
 def index():
@@ -57,11 +58,11 @@ def index():
 @app.route("/predict", methods = ["GET","POST"])
 def predict():
    if request.method == 'POST':
-    uploaded_file = request.files['uploaded_file']
-    df = pd.read_csv(uploaded_file,"\t")
-    sentences = list(df.iloc[:,0].values)
-    predict = obj.result(sentences)
-    return render_template("index.html",prediction = predict)
+    text = request.form['text_data']
+    text = [text]
+    predict = obj.result(text)
+    results.append(predict)
+    return render_template("index.html",analysis_results = results)
 
 if __name__ == "__main__":
   app.run(debug=True)
