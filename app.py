@@ -6,8 +6,8 @@ import tensorflow_hub as hub
 import tensorflow_text as text
 from flask import Flask,render_template,request
 
-preprocess_layer = hub.KerasLayer(r".\bert_en_uncased_preprocess_3")
-bert_layer = hub.KerasLayer(r".\small_bert_bert_en_uncased_L-6_H-256_A-4_2",trainable = False)
+preprocess_layer = hub.KerasLayer(r"\bert_en_uncased_preprocess_3")
+bert_layer = hub.KerasLayer(r"\small_bert_bert_en_uncased_L-6_H-256_A-4_2",trainable = False)
 
 text_input = tf.keras.layers.Input(shape = (),dtype = tf.string,name = "text")
 text_preprocessed = preprocess_layer (text_input)
